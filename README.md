@@ -34,6 +34,8 @@ We experimented with different cell sizes, sensor precisions, noise levels, and 
   
   Some paths just won't work because of the design of the map too. It's impossible for the robot to realize the shelf, the chair and the table are what they are. as the height of the laser delivers a false reading of reality. That's when the fixed maps come in handy.
 
+  Seemingly impacteless varibles can have a change robot's workings. The system itself can make it work differently, on Mac an Linux Ubunto it runs different, making faster readings on one system, which may allow faster rotations. This various inlfuences tell that, so the best working of the robot, each case has to be tailored, with a lot of experimentation, until a good set of variables are set for that case in specifict.
+
 ### Setup
 1. Ensure CoppeliaSim is installed and operational.
 2. Place the simulation scenes in the same folder as the notebook.
@@ -94,6 +96,7 @@ The control mechanism for the differential robot includes three key functions, e
 
 3. **Rotation:**
    - Turns the robot in the desired amount of radians.
+   - It's possible to make a more refined turn by mulitplying the velocity by the angle difference, so as the angle difference gets lower, it gets more precise 
 
 3. **Move to a point:**
    - Uses the rotation function to align the angle of the robot with the desired destination and sets the velocity of the wheels equal to each other, stopping when near the goal point.
@@ -158,7 +161,7 @@ Using the ternary simplified grid of 0s, 1s and 2s, Iterating through the whole 
 The resulting grid is the Frontier grid. With ones being the Frontiers and 0s the non Frontiers.
 
 <p align="center">
-<img width="701" alt="Screenshot 2024-07-14 at 18 07 13" src="https://github.com/user-attachments/assets/679508f3-78cb-46d4-9ffd-3e33cbcfdfa1">
+<img width="600" alt="Screenshot 2024-07-14 at 18 07 13" src="https://github.com/user-attachments/assets/679508f3-78cb-46d4-9ffd-3e33cbcfdfa1">
 
 <p/>
 
@@ -202,7 +205,7 @@ It's worth noting that:
 - If there isn't a path to the point(as sometimes erros in precision causes frontiers to be found in complicated places) a path to the closest points is searched.
 
 <p align="center">
-<img width="699" alt="Screenshot 2024-07-14 at 20 01 45" src="https://github.com/user-attachments/assets/6e47aec1-d215-4819-b05a-44320844a67b">
+<img width="600" alt="Screenshot 2024-07-14 at 20 01 45" src="https://github.com/user-attachments/assets/6e47aec1-d215-4819-b05a-44320844a67b">
 <p/>
   
 ## Ramer-Douglas-Peucker Algorithm
@@ -219,7 +222,7 @@ So adding intermediate points is needed. This function ensures that the distance
 <img width="360" alt="Screenshot 2024-07-15 at 10 34 13" src="https://github.com/user-attachments/assets/74dedb19-117b-49cd-b7c4-b57d8d3f8608">
 <p/>
 <p align="center">
-Reduced path on right, normal path on right
+Normal path on right, simplified path on right
 <p/>
 
 ## Exploring function 
@@ -280,7 +283,14 @@ Plots various versions of the grid based on the specified parameters:
 
 
 ## 5. Tests
-Some tests registered
+**Some tests registered**
+
+The noise is given by starandad deviation values, in the Gaussina distribution.
+
+Small noises have 0.02m of SD and big have 0.03m of SD on distance error.
+On angle errors, it's 0.02 radians and 0.03 radians(1-2 dregrees) SD.
+
+In reality we might get bigger errors on the bigger ranges, but here they are the same for every distance. Same for the angle error, as it doesn't change based on the angle itself.
 
 For every case that changing variables didn't allow the robot to finish because the design of the map(chair, table and shelf), the fixed map was used. And it drastically changes the performance of the algorithm, as it doesnt depend os luck to avoid those obstacles and dwelves into a diferent set of paths:
 Here are the follwing paths of the fized map:
@@ -296,84 +306,176 @@ Here are the follwing paths of the fized map:
 <img width="360" alt="Screenshot 2024-07-15 at 04 34 09" src="https://github.com/user-attachments/assets/7295b80c-233f-4578-b647-942d912fbedd">
 <p/>
 
-**First, with the static map** 
+### First, with the static map
 
-An example of a path made, on a 0.01 cell grid.
+**An example of the paths made, on a 0.01 cell grid.**
 
+<p align="center">
+<img width="222" alt="Screenshot 2024-07-15 at 03 33 23" src="https://github.com/user-attachments/assets/6b6b94b1-9ef0-457c-a993-bf166eb8dbee">
+<img width="222" alt="Screenshot 2024-07-15 at 03 33 30" src="https://github.com/user-attachments/assets/bdcfec07-f8f7-455c-b170-f107e53ab245">
+<img width="222" alt="Screenshot 2024-07-15 at 03 33 37" src="https://github.com/user-attachments/assets/c523083b-62fa-4acf-9445-9ef038a05dae">
+<img width="222" alt="Screenshot 2024-07-15 at 03 33 45" src="https://github.com/user-attachments/assets/8b60ee3e-624d-4457-8297-d11d6213b737">
+<img width="222" alt="Screenshot 2024-07-15 at 03 33 52" src="https://github.com/user-attachments/assets/38dc5fbf-3f51-4df1-85cf-0c11c1b138d7">
+<img width="222" alt="Screenshot 2024-07-15 at 03 34 01" src="https://github.com/user-attachments/assets/9b79c045-529d-4c28-89e4-c778c1fad78d">
+<img width="222" alt="Screenshot 2024-07-15 at 03 34 09" src="https://github.com/user-attachments/assets/dd8b32c3-495e-4137-9f1c-b2277330fa94">
+<img width="222" alt="Screenshot 2024-07-15 at 03 34 33" src="https://github.com/user-attachments/assets/1f718515-c75e-4cea-8806-aeb0e70cce2e">
+<p/>
 
+#### Changing cell size without sensor noise, 0.99 sensor precision and low velocity(1ms)
 
-Cell size without sensor noise, 0.99 sensor precision and low velocity(1ms)
-
-<img width="701" alt="Screenshot 2024-07-15 at 03 34 33" src="https://github.com/user-attachments/assets/d358f5e3-b5ba-4612-9c7b-7ba8b0dbbb49">
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 03 34 33" src="https://github.com/user-attachments/assets/d358f5e3-b5ba-4612-9c7b-7ba8b0dbbb49">
+<p/>
 <p align="center">
 0.01m cell size
 <p/>
 
-0.05m <img width="704" alt="Screenshot 2024-07-15 at 04 34 09" src="https://github.com/user-attachments/assets/a1d0d981-5689-409a-be52-20ed7714e179">
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 04 34 09" src="https://github.com/user-attachments/assets/a1d0d981-5689-409a-be52-20ed7714e179">
+<p/>
+<p align="center">
+0.05m cell size
+<p/>
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-14 at 20 01 55" src="https://github.com/user-attachments/assets/e8747673-a6f7-482b-8d5a-b5cf33f85dc0">
+<p/>
+<p align="center">
+0.1m cell size
+<p/>
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 05 51 31" src="https://github.com/user-attachments/assets/2c331d1f-fbee-4c66-9168-d373f8b43b67">
+<p/>
+<p align="center">
+0.5m cell size: Unusable
+<p/>
+
+#### Chainging cell sizes with sensor noises
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 06 06 54" src="https://github.com/user-attachments/assets/6e4b84f6-9e19-46c9-8500-3ba2efb24c9e">
+<p/>
+<p align="center">
+Sensor noises this high make small sizes very bad. Like in this case, where the first standard deviation will cover 2 cells, without considering the angle noise, that make it even worse.
+<p/>
+
+<p align="center">
+<img width="600" alt="noisy_005m" src="https://github.com/user-attachments/assets/90ec5360-afc7-4b7f-8c06-15e8b1fe4601">
+<p/>
+<p align="center">
+0.05m cell size
+<p/>
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 17 16 13" src="https://github.com/user-attachments/assets/91b5b911-c632-48cd-8912-1f787236d2cd">
+<p/>
+<p align="center">
+0.1m cell size
+<p/>
+
+#### Bigger noises on static map
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 17 36 14" src="https://github.com/user-attachments/assets/fe7a54d5-0821-4d3a-9e81-191efee5f813">
+<p/>
+<p align="center">
+0.05m cell size
+<p/>
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 17 43 53" src="https://github.com/user-attachments/assets/99e9380c-bd7f-47ad-9b2c-4d611a3b5e82">
+<p/>
+<p align="center">
+0.1m cell size
+<p/>
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 17 44 23" src="https://github.com/user-attachments/assets/2b29d168-34b4-4f63-8e81-e38e37f308aa">
+<p/>
+<p align="center">
+0.1m cell size path with bigger noise. Here it's possible to see, how having to lower the max distance of the laser to account for the bigger noise can make the robot walk way more, specially if unlucky with the readings.
+<p/>
+
+#### Dynamic map with noise
+
+<p align="center">
+
+<p/>
+<p align="center">
+0.01m cell size
+<p/>
+
+<p align="center">
+
+<p/>
+<p align="center">
+0.05m cell size
+<p/>
+
+<p align="center">
+
+<p/>
+<p align="center">
+0.1m cell size
+<p/>
+
+**Different starting positions in static map with noise**
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 04 34 09" src="https://github.com/user-attachments/assets/a1d0d981-5689-409a-be52-20ed7714e179">
+<p/>
+<p align="center">
+0.05m cell size
+<p/>
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-14 at 20 01 55" src="https://github.com/user-attachments/assets/e8747673-a6f7-482b-8d5a-b5cf33f85dc0">
+<p/>
+<p align="center">
+0.05m cell size
+<p/>
+
+**Different starting position in dynamic map with noise**
+
+<p align="center">
+<img width="600" alt="Screenshot 2024-07-15 at 04 34 09" src="https://github.com/user-attachments/assets/a1d0d981-5689-409a-be52-20ed7714e179">
+<p/>
 <p align="center">
 0.05 cell size
 <p/>
 
-0.1m y
-
 <p align="center">
-<img width="691" alt="Screenshot 2024-07-15 at 05 51 31" src="https://github.com/user-attachments/assets/2c331d1f-fbee-4c66-9168-d373f8b43b67">
+<img width="600" alt="Screenshot 2024-07-14 at 20 01 55" src="https://github.com/user-attachments/assets/e8747673-a6f7-482b-8d5a-b5cf33f85dc0">
 <p/>
 <p align="center">
-0.5 cell size: Unusable
+0.1m cell size
 <p/>
 
-with sensor noises
-
-<p align="center">
-<img width="704" alt="Screenshot 2024-07-15 at 06 06 54" src="https://github.com/user-attachments/assets/6e4b84f6-9e19-46c9-8500-3ba2efb24c9e">
-<p/>
-<p align="center">
-sensor noises this high make really small sizes very bad
-<p/>
-
-
-<p align="center">
-<img width="700" alt="noisy_005m" src="https://github.com/user-attachments/assets/90ec5360-afc7-4b7f-8c06-15e8b1fe4601">
-<p/>
-<p align="center">
-0.05 cell size
-<p/>
-0.1m
-
-bigger noise 
-
-0.05m
-
-0.1m
-
-dynamic map:
-
-0.05
-
-0.1
-
-dynamic map with noise
-
-
-0.05
-
-0.1
-
+**An example of the paths made, on the dynamic map**
+With 0.05m cell size
 
 
 
 ## 6. Conclusion
 
 - In simpler maps, Frontier Based algorithms can be very efficient in exploring them, even tho, as the cell size grows, the computation needed for calculating the path to a distant frontier, like when the robot goes one way just to arrive at the end and have to go back to a frontier at the beginning. But this is realizable just after the map is built, when there is no information about the map, this strategy is very efficient.
+
+- Iterating and testing is really important. The more the simulation is run, the more learning and possiblities are gathered, with those, the program gets tailored and refined, performing better and better. It's important to try to change every possible variable in the program to check how it works and can influence the results. 
   
 - Gathering information is really important, that's why the speed of the 360 can impact so much. If a small object is undetected or overwritten, it can make the path making algorithm design a horrible path that ruins the run.
 
+- Unfortunately, constant results were hard to get. The lack of parelelism, that is worth implementig on a next iteration or similar project, makes it so the robot can't really move, check it's position and update the grid at the same time, for example, which is a thing that can be done in practive more naturally on a robot.
+
 - The idea of moving to a frontier is great because it's a region with a high probability of bringing a lot of new information. But when a frontier is smaller than the robot, which is a good minimum size, as the robot wont be able to fit in a space smaller for exploring, a problem shows, it isn't a good algorithm fot discovering small details or looking through a small hole to see what behind it, for example.
+
+- Reducing the range of the laser with big error in the angle reading can help e little.
 
 - When obstacles are very close to to the frontier, it can be a problem, thats when a good reactiveness of the robot is usefull. It can't just depend on the planning.
 
 - The speed of the robot can influence the mapping a lot. A very good reading asks for a slow moving robot, specially with a no state of the art sensor. But for not so great mapping, the speeds can be higher, as the doesn't fall too much with higher speed, with a stable robot like Kobuki.
+
+- On the dynamic map, the only way to not get runned over by the human is to mess with variables. increasing the speed of the rotation, descressing the speed in a line, changing the padding, the minimum distance for considreing too close et.al. That's the only way to make it work as the robot wont recognize the human as anything special. Each time the program can behave in a way too, since a single cell beeing or not beeing occupied can change the frontier goal, for example, making each run even more dynamic.
 
 - Small objectes can be trouble for the robot, specially with big cells, as the inverse sensor model can mark them as unoccupied.
 

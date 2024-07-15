@@ -215,11 +215,11 @@ Is's a problem because, if its a big distance, aN error in the angle the robot l
 So adding intermediate points is needed. This function ensures that the distance between consecutive points in a path does not exceed a specified max distance. It does this by adding intermediate points along segments that are longer than max_distance. For each segment, it calculates the number of intermediate points needed and inserts them at evenly spaced intervals between the start and end points. so the robot can follow it step by step.
 
 <p align="center">
-<img width="360" alt="Screenshot 2024-07-15 at 05 13 18" src="https://github.com/user-attachments/assets/a828d80e-96ae-40ea-8574-7ec6e592dbf9">
-
+<img width="360" alt="Screenshot 2024-07-15 at 10 32 51" src="https://github.com/user-attachments/assets/538e049e-6c5a-4eb1-96b5-be84f6ef8d46">
+<img width="360" alt="Screenshot 2024-07-15 at 10 34 13" src="https://github.com/user-attachments/assets/74dedb19-117b-49cd-b7c4-b57d8d3f8608">
 <p/>
 <p align="center">
-Processsed path on left and normal one on the right
+Reduced path on right, normal path on right
 <p/>
 
 ## Exploring function 
@@ -300,13 +300,7 @@ Here are the follwing paths of the fized map:
 
 An example of a path made, on a 0.01 cell grid.
 
-<p align="center">
-<img width="360" alt="Screenshot 2024-07-15 at 10 32 51" src="https://github.com/user-attachments/assets/538e049e-6c5a-4eb1-96b5-be84f6ef8d46">
-<img width="360" alt="Screenshot 2024-07-15 at 10 34 13" src="https://github.com/user-attachments/assets/74dedb19-117b-49cd-b7c4-b57d8d3f8608">
-<p/>
-<p align="center">
-Reduced path on right, normal path on right
-<p/>
+
 
 Cell size without sensor noise, 0.99 sensor precision and low velocity(1ms)
 

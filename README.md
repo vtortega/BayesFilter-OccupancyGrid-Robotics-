@@ -22,7 +22,7 @@ The primary challenge addressed in this project is the effective exploration and
 <img width="800" alt="Screenshot 2024-07-15 at 04 41 01" src="https://github.com/user-attachments/assets/602eb24f-cc76-4656-8aa0-c13cb496f98d">
 <p/>
 
-### Experimental Variations
+### Experiment Variations
 We experimented with different cell sizes, sensor precisions, noise levels, and navigation algorithms to identify the optimal path to the objective point. Notably, the robot's position is provided by the Coppelia simulator, ensuring accurate localization.
 
 ## 2. Execution of the Program

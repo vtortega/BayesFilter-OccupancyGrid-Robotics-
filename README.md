@@ -4,7 +4,10 @@
 ## 1. Introduction
 In situations where the environment is unknown, effective exploration strategies become crucial. This notebook delves into the realm of autonomous exploration in robotics, using the differential Kobuki robot equipped with a single 180-degree Hokuyo fast laser sensor, with a maximum range of 5 meters. This robot, similar to traditional vacuum cleaning robots, operates within predefined simulation scenes. We conduct experiments in both static and dynamic environments to assess performance under varying conditions.
 
-<img width="2484" alt="Screenshot 2024-07-14 at 14 40 30" src="https://github.com/user-attachments/assets/3cec99a8-8afb-4062-aec8-ad0cdff3b97a">
+<p align="center">
+<img width="542" alt="Screenshot 2024-07-14 at 14 40 30" src="https://github.com/user-attachments/assets/3cec99a8-8afb-4062-aec8-ad0cdff3b97a">
+<img width="315" alt="Screenshot 2024-07-15 at 03 34 33" src="https://github.com/user-attachments/assets/1f718515-c75e-4cea-8806-aeb0e70cce2e">
+<p/>
 
 ### Problem Overview
 The primary challenge addressed in this project is the effective exploration and mapping of an environment using a robot. Key aspects include handling sensor noise and determining an efficient maping and navigation strategy.
@@ -15,7 +18,9 @@ The primary challenge addressed in this project is the effective exploration and
 - **Simulation:** CoppeliaSim with predefined scenes
 - **Scenarios:** Static and dynamic environments (a person walking in the room adds complexity)
 
-<img width="1666" alt="Screenshot 2024-07-15 at 04 41 01" src="https://github.com/user-attachments/assets/602eb24f-cc76-4656-8aa0-c13cb496f98d">
+<p align="center">
+<img width="800" alt="Screenshot 2024-07-15 at 04 41 01" src="https://github.com/user-attachments/assets/602eb24f-cc76-4656-8aa0-c13cb496f98d">
+<p/>
 
 ### Experimental Variations
 We experimented with different cell sizes, sensor precisions, noise levels, and navigation algorithms to identify the optimal path to the objective point. Notably, the robot's position is provided by the Coppelia simulator, ensuring accurate localization.

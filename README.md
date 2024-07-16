@@ -34,7 +34,9 @@ We experimented with different cell sizes, sensor precisions, noise levels, and 
   
   Some paths just won't work because of the design of the map too. It's impossible for the robot to realize the shelf, the chair and the table are what they are. as the height of the laser delivers a false reading of reality. That's when the fixed maps come in handy.
 
-  Seemingly impacteless varibles can have a change robot's workings. The system itself can make it work differently, on Mac an Linux Ubunto it runs different, making faster readings on one system, which may allow faster rotations. This various inlfuences tell that, so the best working of the robot, each case has to be tailored, with a lot of experimentation, until a good set of variables are set for that case in specifict.
+  Seemingly impactless varibles can have a change robot's workings. The system itself can make it work differently, on Mac an Linux Ubunto it runs different, making faster readings on one system, which may allow faster rotations. This various inlfuences tell that, so the best working of the robot, each case has to be tailored, with a lot of experimentation, until a good set of variables are set for that case in specifict.
+
+  The static maps have a way higher constancy rate. Dont expect going into the dynamic scene and testing every variable with every starting point and geting the full grid mapped. The robot will get cought up by the human if the tailoring isn't made very carefully and with a lot of iterations. It isn't a problem of the implementation, just the nature of the algorithm.
 
 ### Setup
 1. Ensure CoppeliaSim is installed and operational.
@@ -129,7 +131,7 @@ Simplifies the grid for the navigation strategy.
 3. Cells from -0.2 to 0 are marked as unknown(2)
 
 <p align="center">
-<img width="360" alt="Screenshot 2024-07-13 at 23 07 45" src="https://github.com/user-attachments/assets/1d71e942-e9e3-4671-a479-88c66ea26708">
+<img width="369" alt="Screenshot 2024-07-13 at 23 07 45" src="https://github.com/user-attachments/assets/1d71e942-e9e3-4671-a479-88c66ea26708">
 <img width="360" alt="Screenshot 2024-07-13 at 23 07 57" src="https://github.com/user-attachments/assets/05d2f6b4-1203-4e58-90bb-9f1d719b5165">
 <p/>
 <p align="center">
@@ -144,7 +146,7 @@ For finding the path for the robot to follow in the grid, it's needed to conside
 The padding should vary depending on the robot size and the cell size, the smaller the cell, the bigger the padding(robot size / cell size) + margin of safety.
 
 <p align="center">
-<img width="360" alt="Screenshot 2024-07-13 at 23 08 08" src="https://github.com/user-attachments/assets/157be9fd-b46d-4a97-8660-d092fc9beb20">
+<img width="365" alt="Screenshot 2024-07-13 at 23 08 08" src="https://github.com/user-attachments/assets/157be9fd-b46d-4a97-8660-d092fc9beb20">
 <img width="355" alt="Screenshot 2024-07-13 at 23 07 57" src="https://github.com/user-attachments/assets/4a1c61b9-c49c-4558-bd46-e0b7f7b5f0b7">
 <p/>
 <p align="center">
@@ -220,7 +222,7 @@ So adding intermediate points is needed. This function ensures that the distance
 
 <p align="center">
 <img width="360" alt="Screenshot 2024-07-15 at 10 32 51" src="https://github.com/user-attachments/assets/538e049e-6c5a-4eb1-96b5-be84f6ef8d46">
-<img width="360" alt="Screenshot 2024-07-15 at 10 34 13" src="https://github.com/user-attachments/assets/74dedb19-117b-49cd-b7c4-b57d8d3f8608">
+<img width="365" alt="Screenshot 2024-07-15 at 10 34 13" src="https://github.com/user-attachments/assets/74dedb19-117b-49cd-b7c4-b57d8d3f8608">
 <p/>
 <p align="center">
 Normal path on right, simplified path on right
@@ -454,28 +456,48 @@ Here, the fixed map was used, as it's impossible to measure the rack correctly, 
 #### Different starting position in dynamic map with noise
 
 <p align="center">
-<img width="600" alt="Screenshot 2024-07-15 at 04 34 09" src="https://github.com/user-attachments/assets/a1d0d981-5689-409a-be52-20ed7714e179">
+<img width="2412" alt="Screenshot 2024-07-15 at 22 19 56" src="https://github.com/user-attachments/assets/31229c67-71c9-4a64-8d71-30677a6a2ad8">
+<p/>
+
+<p align="center">
+<img width="300" alt="Screenshot 2024-07-15 at 22 13 01" src="https://github.com/user-attachments/assets/200a4055-e28c-4912-936e-01d71143dc11">
+<img width="300" alt="Screenshot 2024-07-15 at 22 13 17" src="https://github.com/user-attachments/assets/682dfa20-9342-464c-b1a8-82c5625cc966">
+<img width="300" alt="Screenshot 2024-07-15 at 22 13 30" src="https://github.com/user-attachments/assets/ff310e54-73e5-49dd-8cf9-9f37536b4e58">
+<img width="300" alt="Screenshot 2024-07-15 at 22 13 43" src="https://github.com/user-attachments/assets/4383293b-72e6-467f-801d-21e024dce7ba">
+<img width="300" alt="Screenshot 2024-07-15 at 22 13 59" src="https://github.com/user-attachments/assets/cc145847-0c8c-4bdd-af13-84bbd2d7c21c">
+<img width="300" alt="Screenshot 2024-07-15 at 22 14 13" src="https://github.com/user-attachments/assets/7fa29147-90b1-42a3-a875-e2b9e58b5797">
+<img width="300" alt="Screenshot 2024-07-15 at 22 14 27" src="https://github.com/user-attachments/assets/e445dcf8-5d19-412b-861c-43225d5a8cde">
+<img width="300" alt="Screenshot 2024-07-15 at 22 14 43" src="https://github.com/user-attachments/assets/7b34447b-3dbf-4798-9a3c-4b5088bd90fd">
 <p/>
 <p align="center">
 0.05 cell size
 <p/>
 
 <p align="center">
-<img width="600" alt="Screenshot 2024-07-14 at 20 01 55" src="https://github.com/user-attachments/assets/e8747673-a6f7-482b-8d5a-b5cf33f85dc0">
+<img width="300" alt="Screenshot 2024-07-15 at 22 31 46" src="https://github.com/user-attachments/assets/f2cdd069-dfff-4827-9afe-824790d0331c">
+<img width="300" alt="Screenshot 2024-07-15 at 22 32 43" src="https://github.com/user-attachments/assets/91e05f0a-bc39-4421-9a60-4b1d1d1343da">
+<img width="300" alt="Screenshot 2024-07-15 at 22 32 55" src="https://github.com/user-attachments/assets/eb170a68-239a-42b2-ae9b-3b7bc58a0f50">
+<img width="300" alt="Screenshot 2024-07-15 at 22 33 10" src="https://github.com/user-attachments/assets/9c9c8fd9-17d3-4f28-bfeb-e74dce33cb99">
+<img width="300" alt="Screenshot 2024-07-15 at 22 33 25" src="https://github.com/user-attachments/assets/73790426-cb0f-4533-badc-33ff4441a956">
+<img width="300" alt="Screenshot 2024-07-15 at 22 33 38" src="https://github.com/user-attachments/assets/586e3bc3-a3e4-4dfe-a290-eaf1d481b65b">
+<img width="300" alt="Screenshot 2024-07-15 at 22 33 52" src="https://github.com/user-attachments/assets/da519d6d-14fe-49a8-94c2-f0d41fa6f6ee">
+
 <p/>
 <p align="center">
-0.1m cell size
+0.05m cell size
 <p/>
 
-#### An example of the paths made, on the dynamic map**
-With 0.05m cell size
+#### An example of the paths made, on the dynamic map orignal map, with noise**
+
 <p align="center">
 <img width="300" alt="Screenshot 2024-07-15 at 20 51 03" src="https://github.com/user-attachments/assets/6e4a2f64-f22d-42b7-b73e-ec04fcf06709">
 <img width="300" alt="Screenshot 2024-07-15 at 20 51 11" src="https://github.com/user-attachments/assets/d7d3a28a-968b-42e5-916a-0c4adbd5b9c4">
 <img width="300" alt="Screenshot 2024-07-15 at 20 51 17" src="https://github.com/user-attachments/assets/d080a654-3a39-4351-9b99-56f0fa79e6d0">
 <img width="300" alt="Screenshot 2024-07-15 at 20 51 25" src="https://github.com/user-attachments/assets/923e2cdb-6751-43bc-904b-38af826c6b77">
 <img width="300" alt="Screenshot 2024-07-15 at 20 51 35" src="https://github.com/user-attachments/assets/85b3af0a-6555-4339-9b9e-bb7362da2724">
-
+<p/>
+<p align="center">
+0.05 cell size
 <p/>
 
 

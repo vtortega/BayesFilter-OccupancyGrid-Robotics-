@@ -96,7 +96,8 @@ The control mechanism for the differential robot includes three key functions, e
 
 3. **Rotation:**
    - Turns the robot in the desired amount of radians.
-   - It's possible to make a more refined turn by mulitplying the velocity by the angle difference, so as the angle difference gets lower, it gets more precise 
+   - It doesn't update the grid, because it is too fast and can distort the data
+   - It's possible to make a more refined turn by mulitplying the velocity by the angle difference(the absolute of the angle difference, so to maintain the best turn side(clock or anti-clock wise), so as the angle difference gets lower, it gets more precise, as to not go over the desired angle. This was one of the best design choices made, as the robot could be very assertive and precise with the angle leaving each point, allowing for more far apart points on the path and ending the problem with back and fourth problem where it keeps trying to get to the correct angle but missing it as it can't check very frquently as it is updating the grid in each iteration of checking. But, as this modification is kinda of overpowered and unrealistic, it was only implemented on the dynamic map, where the speed is needed.
 
 3. **Move to a point:**
    - Uses the rotation function to align the angle of the robot with the desired destination and sets the velocity of the wheels equal to each other, stopping when near the goal point.
@@ -398,45 +399,59 @@ Sensor noises this high make small sizes very bad. Like in this case, where the 
 <p/>
 
 #### Dynamic map with noise
+As said in the defintion of the control for rotating, in the dynamic scenes a very smart strategy is used. It consisists in lowering the speed as the robot orientation gets closer to the correct one. But with such precision used in the dynamic maps, it isn't realistic, that's why it's only used here for generating the map in the dynamic scene, as, otherwise, the human would run over the robot, as it's so slow.
 
 <p align="center">
-
+<img width="600" alt="Screenshot 2024-07-15 at 19 17 26" src="https://github.com/user-attachments/assets/19740c69-b713-4f18-9aaf-04421f43ee5e">
 <p/>
 <p align="center">
-0.01m cell size
+Upwards it's a image of a case where a big area isn't explored bacause the frontier isn't big enought, based on the passsed parameters. But it should be and explored area. In this case, the only thing left to do is set upon a smaller frontier size limit(by altering it's formula)
 <p/>
 
 <p align="center">
-
+<img width="600" alt="Screenshot 2024-07-15 at 20 51 43" src="https://github.com/user-attachments/assets/6fe6a633-58d4-4a2f-b15a-33e88721a2ba">
 <p/>
 <p align="center">
 0.05m cell size
 <p/>
 
 <p align="center">
-
+<img width="600" alt="Screenshot 2024-07-15 at 21 05 50" src="https://github.com/user-attachments/assets/fb2f019c-f20c-4642-985b-d2f24529f980">
 <p/>
 <p align="center">
 0.1m cell size
 <p/>
 
-**Different starting positions in static map with noise**
+#### Different starting positions in static map with noise
 
 <p align="center">
-<img width="600" alt="Screenshot 2024-07-15 at 04 34 09" src="https://github.com/user-attachments/assets/a1d0d981-5689-409a-be52-20ed7714e179">
+<img width="300" alt="Screenshot 2024-07-15 at 21 25 47" src="https://github.com/user-attachments/assets/ea0c9767-33a0-4d06-8f80-785f50bd7a05">
+<img width="300" alt="Screenshot 2024-07-15 at 21 26 03" src="https://github.com/user-attachments/assets/14f6a69d-46da-44eb-8f4c-aac8cf1efd0b">
+<img width="300" alt="Screenshot 2024-07-15 at 21 26 22" src="https://github.com/user-attachments/assets/02600cbe-be40-4652-9229-c2167fe923e1">
+<img width="300" alt="Screenshot 2024-07-15 at 21 26 43" src="https://github.com/user-attachments/assets/5f4cc5b3-1e4a-4856-b696-2daa994bf5f7">
+<img width="300" alt="Screenshot 2024-07-15 at 21 26 56" src="https://github.com/user-attachments/assets/7ccf9da5-c68b-4765-acca-02d3c8675955">
+<img width="300" alt="Screenshot 2024-07-15 at 21 27 09" src="https://github.com/user-attachments/assets/aaa21b1d-539f-4d7b-b8ed-51b911af8b5e">
 <p/>
 <p align="center">
 0.05m cell size
 <p/>
 
 <p align="center">
-<img width="600" alt="Screenshot 2024-07-14 at 20 01 55" src="https://github.com/user-attachments/assets/e8747673-a6f7-482b-8d5a-b5cf33f85dc0">
+<img width="300" alt="Screenshot 2024-07-15 at 21 40 39" src="https://github.com/user-attachments/assets/6d241f62-d834-4054-82a9-bb2345b3436d">
+<img width="300" alt="Screenshot 2024-07-15 at 21 40 57" src="https://github.com/user-attachments/assets/7d45fac3-cfda-43d0-a5a9-ec2af5234cac">
+<img width="300" alt="Screenshot 2024-07-15 at 21 41 14" src="https://github.com/user-attachments/assets/93be37c8-e4e0-4f83-9fb6-e89308ad8ea3">
+<img width="300" alt="Screenshot 2024-07-15 at 21 41 30" src="https://github.com/user-attachments/assets/015866d9-a152-4bc4-9088-ded2df9e2cfb">
+<img width="300" alt="Screenshot 2024-07-15 at 21 41 44" src="https://github.com/user-attachments/assets/cfbd00ff-8416-46a4-90c9-844b9cf875c5">
+<img width="300" alt="Screenshot 2024-07-15 at 21 42 01" src="https://github.com/user-attachments/assets/5efa0a1b-f106-435c-9ec8-cb27284421c2">
+<img width="300" alt="Screenshot 2024-07-15 at 21 42 50" src="https://github.com/user-attachments/assets/637748f4-f934-4921-a33c-af97b201a6cb">
 <p/>
 <p align="center">
 0.05m cell size
+
+Here, the fixed map was used, as it's impossible to measure the rack correctly, and, as shown above, when not unlucky the robot isn't goingo to pass there when starting at pre-decided positions, but that isn't a fair pre-condition, as the algorithm should work in the most cases possible.
 <p/>
 
-**Different starting position in dynamic map with noise**
+#### Different starting position in dynamic map with noise
 
 <p align="center">
 <img width="600" alt="Screenshot 2024-07-15 at 04 34 09" src="https://github.com/user-attachments/assets/a1d0d981-5689-409a-be52-20ed7714e179">
@@ -452,9 +467,16 @@ Sensor noises this high make small sizes very bad. Like in this case, where the 
 0.1m cell size
 <p/>
 
-**An example of the paths made, on the dynamic map**
+#### An example of the paths made, on the dynamic map**
 With 0.05m cell size
+<p align="center">
+<img width="300" alt="Screenshot 2024-07-15 at 20 51 03" src="https://github.com/user-attachments/assets/6e4a2f64-f22d-42b7-b73e-ec04fcf06709">
+<img width="300" alt="Screenshot 2024-07-15 at 20 51 11" src="https://github.com/user-attachments/assets/d7d3a28a-968b-42e5-916a-0c4adbd5b9c4">
+<img width="300" alt="Screenshot 2024-07-15 at 20 51 17" src="https://github.com/user-attachments/assets/d080a654-3a39-4351-9b99-56f0fa79e6d0">
+<img width="300" alt="Screenshot 2024-07-15 at 20 51 25" src="https://github.com/user-attachments/assets/923e2cdb-6751-43bc-904b-38af826c6b77">
+<img width="300" alt="Screenshot 2024-07-15 at 20 51 35" src="https://github.com/user-attachments/assets/85b3af0a-6555-4339-9b9e-bb7362da2724">
 
+<p/>
 
 
 ## 6. Conclusion

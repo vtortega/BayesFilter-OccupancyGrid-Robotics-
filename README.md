@@ -461,7 +461,7 @@ Here, the fixed map was used, as it's impossible to measure the rack correctly, 
 #### Different starting position in dynamic map with noise
 
 <p align="center">
-<img width="2412" alt="Screenshot 2024-07-15 at 22 19 56" src="https://github.com/user-attachments/assets/31229c67-71c9-4a64-8d71-30677a6a2ad8">
+<img width="900" alt="Screenshot 2024-07-15 at 22 19 56" src="https://github.com/user-attachments/assets/31229c67-71c9-4a64-8d71-30677a6a2ad8">
 <p/>
 
 <p align="center">

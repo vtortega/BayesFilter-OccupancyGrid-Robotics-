@@ -19,7 +19,7 @@ The primary challenge addressed in this project is the effective exploration and
 - **Scenarios:** Static and dynamic environments (a person walking in the room adds complexity)
 
 <p align="center">
-<img width="800" alt="Screenshot 2024-07-15 at 04 41 01" src="https://github.com/user-attachments/assets/602eb24f-cc76-4656-8aa0-c13cb496f98d">
+<img width="750" alt="Screenshot 2024-07-15 at 04 41 01" src="https://github.com/user-attachments/assets/602eb24f-cc76-4656-8aa0-c13cb496f98d">
 <p/>
 
 ### Experiment Variations
@@ -59,7 +59,7 @@ A basic Bayes Filter with a static state and log odds is used for mapping. Each 
 For navigation, we implemented the [Brian Yamauchi frontier-based approach](https://faculty.iiit.ac.in/~mkrishna/YamauchiFrontier.pdf). This method focuses on exploring the nearest or largest frontier available after updating the grid based on the Bayes Filter.
 
 <p align="center">
-<img width="738" alt="Screenshot 2024-07-14 at 16 23 30" src="https://github.com/user-attachments/assets/c0cedbd5-0670-41cb-a8d1-672a20bff882">
+<img width="730" alt="Screenshot 2024-07-14 at 16 23 30" src="https://github.com/user-attachments/assets/c0cedbd5-0670-41cb-a8d1-672a20bff882">
 <p/>
 
 ### Control
